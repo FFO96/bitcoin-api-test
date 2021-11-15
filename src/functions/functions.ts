@@ -30,7 +30,7 @@ function hdSegWit(req: Request, res: Response) {
 // Function for generating an n-out-of-m Multisignature (multi-sig) Pay-To-Script-Hash (P2SH) bitcoin address
 function multisig(req: Request, res: Response) {
 
-    const bPublicKeys: string[] = req.body.bPublicKEys;
+    const bPublicKeys: string[] = req.body.bPublicKeys;
     const m: number = req.body.m;
     const n: number = req.body.n;
 
