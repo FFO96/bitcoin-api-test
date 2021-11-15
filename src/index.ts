@@ -1,14 +1,18 @@
 import express from "express";
 import { hdSegWit, multisig } from "./functions/functions";
 const app = express();
-const port = 8080; // default port to listen
+const port = 8080;
 
-// define a route handler for the default home page
+// express.json middleware to parse incoming requests with JSON payloads
 app.use(express.json());
-app.use( "/generatehd", hdSegWit);
-app.use( "/generatemultisig", multisig);
 
-// start the Express server
+// Endpoint for HD SegWit bitcoin address
+app.post( "/generatehd", hdSegWit);
+
+// Endpoint formulti-sig P2SH bitcoin address
+app.post( "/generatemultisig", multisig);
+
+// Start the Express server
 app.listen( port, () => {
     console.log( `Server started at http://localhost:${ port }` );
 } );
