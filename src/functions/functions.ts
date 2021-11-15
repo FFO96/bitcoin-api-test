@@ -30,16 +30,16 @@ function hdSegWit(req: Request, res: Response) {
 // Function for generating an n-out-of-m Multisignature (multi-sig) Pay-To-Script-Hash (P2SH) bitcoin address
 function multisig(req: Request, res: Response) {
 
-    const bAdresses: string[] = req.body.bAdresses;
+    const bPublicKeys: string[] = req.body.bPublicKEys;
     const m: number = req.body.m;
     const n: number = req.body.n;
 
     // multi-sig parameters validation
-    validateMultisig(res, bAdresses, m, n);
+    validateMultisig(res, bPublicKeys, m, n);
 
     try {
-        const addresess = bAdresses.map(hex => Buffer.from(hex, 'hex'));
-        const { address } = bitcoin.payments.p2sh({ redeem: bitcoin.payments.p2ms({ m: m, pubkeys: addresess }) });
+        const pubKeys = bPublicKeys.map(hex => Buffer.from(hex, 'hex'));
+        const { address } = bitcoin.payments.p2sh({ redeem: bitcoin.payments.p2ms({ m: m, pubkeys: pubKeys }) });
         res.status(200).send("The created Multisignature P2SH bitcoin address is: " + address);
     } catch (Error) {
         res.send(Error.message);
